@@ -16,7 +16,7 @@
 while read line; do
 	if [ -f "0ABORT0" ]; then break; fi;
 	if /usr/bin/dig @1.0.0.1 +timeout=1 +short HTTPS "$line" | grep -q "ech="; then
-		if /usr/bin/dig @1.0.0.1 +timeout=1 ns "$line" | grep -q "ns\.cloudflare\.com"; then
+		if /usr/bin/dig @1.0.0.1 +timeout=1 ns "$line" | grep -q -e "ns\.cloudflare\.com" -e "\.foundationdns\."; then
 			echo "YES & CF: $line";
 		else
 			echo "YES & !CF: $line";
